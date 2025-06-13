@@ -1,0 +1,51 @@
+:root {
+}
+
+.mainmenu-button {
+    font-size: 42px;
+    color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(188, 188, 188, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    transition: scale 0.4s ease-in-out;
+    margin-bottom: 40px;
+}
+
+.mainmenu-button:hover {
+    scale: 1.1;
+    color: rgba(255, 255, 255, 1.0);
+}
+
+.mainmenu-header {
+    position: absolute;
+    top: 20%;
+    align-self: center;
+    font-size: 100px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-color: rgb(255, 255, 255);
+    -unity-text-outline-width: 0;
+}
+
+.mainmenu-button-group {
+    flex-grow: 1;
+    align-self: center;
+    top: 55%;
+    bottom: auto;
+    flex-basis: auto;
+    flex-direction: column;
+}
+
+.mainmenu-saveslot {
+    width: 29%;
+    background-color: rgba(188, 188, 188, 0);
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.4);
+    transition: border-width 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.mainmenu-saveslot:hover {
+    border-width: 3px;
+    border-color: rgba(255, 255, 255, 1.0);
+}

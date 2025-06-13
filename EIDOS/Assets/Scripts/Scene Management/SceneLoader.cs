@@ -1,9 +1,11 @@
 using Cysharp.Threading.Tasks;
 using System;
+using EIDOS.Debugging;
 using EIDOS.Event_Bus;
 using EIDOS.Event_Bus.Events;
 using EIDOS.UI.Scenes;
 using UnityEngine;
+using LogType = EIDOS.Debugging.LogType;
 
 namespace EIDOS.Scene_Management
 {
@@ -53,15 +55,11 @@ namespace EIDOS.Scene_Management
         /// <summary>
         /// Event handler for LoadScene events - extracts data and initiates scene loading
         /// </summary>
-        /// <param name="eventData">Contains scene index and transition types for the loading operation</param>
         private void OnLoadScene(LoadScene eventData) => TryLoadScene(eventData.SceneIndex, eventData.TransitionInType, eventData.TransitionOutType);
 
         /// <summary>
         /// Safely attempts to load a scene group with error handling and default transition values
         /// </summary>
-        /// <param name="sceneIndex">Index of the scene group to load</param>
-        /// <param name="inTransition">Transition effect when entering the new scene (default: FadeIn)</param>
-        /// <param name="outTransition">Transition effect when leaving the current scene (default: FadeOut)</param>
         private async void TryLoadScene(int sceneIndex, 
             SceneTransitioner.Type inTransition = SceneTransitioner.Type.FadeIn, 
             SceneTransitioner.Type outTransition = SceneTransitioner.Type.FadeOut
@@ -71,18 +69,16 @@ namespace EIDOS.Scene_Management
             {
                 await LoadSceneGroup(sceneIndex, inTransition, outTransition);
             }
-            catch (Exception e)
+            catch
             {
-                Log($"Could not successfully load the scene group {sceneGroupData.name}", e);
+                Log($"Could not successfully load the scene group {sceneGroupData.name}", LogType.Error);
             }
         }
 
         /// <summary>
-        /// Performs the complete scene loading sequence: offload current scene, load new scene, onboard new scene
+        /// Performs the complete scene loading sequence:
+        /// offload the current scene, load the new scene, onboard the new scene
         /// </summary>
-        /// <param name="index">Index of the scene group to load</param>
-        /// <param name="inTransition">Transition effect for entering the new scene</param>
-        /// <param name="outTransition">Transition effect for leaving the current scene</param>
         private async UniTask LoadSceneGroup(int index, 
             SceneTransitioner.Type inTransition, 
             SceneTransitioner.Type outTransition
@@ -107,14 +103,11 @@ namespace EIDOS.Scene_Management
         /// <summary>
         /// Validates that the provided scene index is within the valid range of available scene groups
         /// </summary>
-        /// <param name="index">Scene index to validate</param>
-        /// <returns>True if the index is valid, false otherwise</returns>
         private bool IsValidSceneIndex(int index) => index >= 0 && index < sceneGroupData.sceneGroups.Length;
 
         /// <summary>
         /// Initiates exit processing within the current scene
         /// </summary>
-        /// <param name="transitionType">Type of transition effect to play</param>
         private void Offload(SceneTransitioner.Type transitionType)
         {
             // Raise transition event to trigger visual effects
@@ -124,7 +117,6 @@ namespace EIDOS.Scene_Management
         /// <summary>
         /// Initiates entrance processing within the new scene
         /// </summary>
-        /// <param name="transitionType">Type of transition effect to play</param>
         private void Onboard(SceneTransitioner.Type transitionType)
         {
             // Raise transition event to trigger visual effects
@@ -134,14 +126,12 @@ namespace EIDOS.Scene_Management
         /// <summary>
         /// Conditional logging utility that only outputs messages when debug mode is enabled
         /// </summary>
-        /// <param name="message">Message to log</param>
-        /// <param name="e">Optional exception to include in the log</param>
-        private void Log(string message, Exception e = null)
+        private void Log(string message, LogType logType)
         {
             // Exit early if debugging is disabled
             if (!debug) return;
                 
-            Debug.Log($"[SceneLoader] {message}");
+            Debugger.Log($"[SceneLoader]","message}", logType);
         }
     }
 }

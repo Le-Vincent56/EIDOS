@@ -149,10 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 51449148fa5cba249b4bb8e2497706c0, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: 92ca434dfe8391742bbccd88dfa62cf3, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 5fb523e1abd6d1d4d9e06057eb64be41, type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ada356f3090604d9a90820fe304018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swipeEase: 18
+  swipeEase: 10
   transitionSpeed: 0.4
 --- !u!1 &1379795058
 GameObject:

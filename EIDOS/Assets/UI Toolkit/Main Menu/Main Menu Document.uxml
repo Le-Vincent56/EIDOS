@@ -1,0 +1,30 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Main%20Menu/Main%20Menu%20StyleSheet.uss?fileID=7433441132597879392&amp;guid=1213da7266c3c9e46bb0c30e357d0bbc&amp;type=3#Main Menu StyleSheet" />
+    <ui:VisualElement name="Container" style="flex-grow: 1; width: 100%; height: 100%;">
+        <ui:VisualElement name="Background" style="flex-grow: 1; width: 100%; height: 100%; background-color: rgb(48, 48, 48); position: absolute; top: 0; left: 0; right: 0; bottom: 0;" />
+        <ui:VisualElement name="MainMenu" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; opacity: 1;">
+            <ui:Label text="EIDOS" name="MainHeader" class="mainmenu-header" style="top: 15%;" />
+            <ui:VisualElement name="Buttons" class="mainmenu-button-group" style="top: 40%;">
+                <ui:Button text="START" name="StartButton" class="mainmenu-button" />
+                <ui:Button text="SETTINGS" name="SettingsButton" class="mainmenu-button" />
+                <ui:Button text="QUIT" name="QuitButton" class="mainmenu-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="SaveMenu" style="flex-grow: 1; width: 100%; height: 100%; position: absolute; opacity: 1; display: none;">
+            <ui:Label text="ELUCIDATE" name="SaveHeader" class="mainmenu-header" style="top: 15%;" />
+            <ui:VisualElement name="SaveSlots" style="flex-grow: 0; top: 35%; flex-direction: row; align-self: center; width: 60%; height: 50%; justify-content: center;">
+                <ui:Button text="Button" name="SlotOneButton" class="mainmenu-saveslot" style="transition-property: border-color, border-width; transition-duration: 0.3s, 0.3s;" />
+                <ui:Button text="Button" name="SlotTwoButton" class="mainmenu-saveslot" style="width: 29%; margin-right: auto; margin-left: auto;" />
+                <ui:Button text="Button" name="SlotThreeButton" class="mainmenu-saveslot" style="width: 29%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="SettingsMenu" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; opacity: 1; display: none;">
+            <ui:Label text="SETTINGS" name="SettingsHeader" class="mainmenu-header" style="top: 15%;" />
+            <ui:VisualElement name="Buttons" class="mainmenu-button-group" style="top: 40%;">
+                <ui:Button text="VIDEO" name="StartButton" class="mainmenu-button" />
+                <ui:Button text="AUDIO" name="SettingsButton" class="mainmenu-button" />
+                <ui:Button text="CONTROLS" name="QuitButton" class="mainmenu-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
