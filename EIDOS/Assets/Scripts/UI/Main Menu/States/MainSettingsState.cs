@@ -1,26 +1,30 @@
-﻿using EIDOS.Debugging;
-using EIDOS.Stack_Machine;
+﻿using Cysharp.Threading.Tasks;
+using EIDOS.Debugging;
 using UnityEngine.UIElements;
 
 namespace EIDOS.UI.Main_Menu.States
 {
     public class MainSettingsState : MainBaseState
     {
-        public MainSettingsState(
-            MainMenuController controller, 
-            VisualElement elementContainer) 
-            : base(controller, elementContainer)
+        public MainSettingsState(MainMenuController controller, 
+            VisualElement elementContainer, 
+            float scaleMultiplier,
+            float transitionDuration,
+            bool debug = false) 
+            : base(controller, elementContainer, scaleMultiplier, transitionDuration, debug)
         {
         }
         
-        public override void Enter()
+        public override UniTask Enter()
         {
-            Debugger.Log("[MainSettingsState]", "Entered", LogType.Info);
+            Log(this, "Entered", LogType.Info);
+            return base.Enter();
         }
 
-        public override void Exit()
+        public override UniTask Exit()
         {
-            Debugger.Log("[MainMenuState]", "Exited", LogType.Info);
+            Log(this, "Exited", LogType.Info);
+            return base.Exit();
         }
     }
 }

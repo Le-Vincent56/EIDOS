@@ -10,7 +10,10 @@ namespace EIDOS.UI.Main_Menu
     {
         [SerializeField] private UIInputReader inputReader;
         
-        private StackMachine stackMachine;
+        [Header("Fields")]
+        [SerializeField] private bool debugStack;
+        
+        private AsyncStackMachine stackMachine;
         private UIDocument document;
         private VisualElement rootElement;
         private VisualElement mainContainer;
@@ -54,11 +57,26 @@ namespace EIDOS.UI.Main_Menu
         
         private void CreateStackMachine()
         {
+            // Create the stack machine builder
+            StackMachineBuilder builder = new StackMachineBuilder();
+
+            // Add debug mode if specified by the inspector
+            if (debugStack) builder.WithDebug();
+            
             // Create the stack machine
-            stackMachine = new StackMachine();
+            stackMachine = builder
+                .WithExitOnPush()
+                .WithReenterOnPop()
+                .BuildAsync();
             
             // Create the initial main menu state
-            MainMenuState menuState = new MainMenuState(this, mainContainer);
+            MainMenuState menuState = new MainMenuState(
+                this, 
+                mainContainer, 
+                20f,
+                1.0f,
+                debugStack
+            );
                 
             // Push the main menu state onto the stack
             stackMachine.Push(menuState);
@@ -66,14 +84,26 @@ namespace EIDOS.UI.Main_Menu
 
         public void OpenSaveMenu()
         {
-            MainSaveState saveState = new MainSaveState(this, saveContainer);
+            MainSaveState saveState = new MainSaveState(
+                this, 
+                saveContainer, 
+                0f,
+                1.0f,
+                debugStack
+            );
             
             stackMachine.Push(saveState);
         }
 
         public void OpenSettingsMenu()
         {
-            MainSettingsState settingsState = new MainSettingsState(this, settingsContainer);
+            MainSettingsState settingsState = new MainSettingsState(
+                this, 
+                settingsContainer, 
+                0f,
+                1.0f,
+                debugStack
+            );
             
             stackMachine.Push(settingsState);
         }

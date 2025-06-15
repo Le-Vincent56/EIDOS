@@ -1,32 +1,54 @@
-﻿using System.Collections.Generic;
+﻿using EIDOS.Debugging;
 
 namespace EIDOS.Stack_Machine
 {
-    public class StackMachine
+    public class StackMachine : BaseStackMachine<IStackState>
     {
-        private readonly Stack<IStackState> stateStack = new Stack<IStackState>();
-        
-        public IStackState CurrentState => stateStack.Count > 0 ? stateStack.Peek() : null;
+        internal StackMachine(StackMachineConfig config) : base(config) { }
 
         public void Push(IStackState newState)
         {
-            stateStack.Push(newState);
+            // Check if the state should exit on push
+            if (ShouldExitOnPush() && CurrentState != null)
+            {
+                // Exit current state
+                CurrentState.Exit();
+            }
+            
+            // Push state and enter it
+            StateStack.Push(newState);
             newState.Enter();
+            
+            Log($"Pushed async state: {newState.GetType().Name}", LogType.Info);
         }
 
         public void Pop()
         {
-            if (stateStack.Count == 0) return;
+            // Exit case: no states to pop
+            if (!HasStates()) return;
 
-            CurrentState.Exit();
-            stateStack.Pop();
+            // Exit current state
+            CurrentState?.Exit();
+            
+            // Pop state
+            StateStack.Pop();
+            
+            Log($"Popped async state: {CurrentState?.GetType().Name}", LogType.Info);
+            
+            // Exit case: not configured to reenter on pop
+            if (!ShouldReenterOnPop()) return;
+                
+            // Reenter the current state
+            CurrentState?.Enter();
         }
 
-        public void Update()
+        public override void Update()
         {
-            if (stateStack.Count == 0) return;
-
-            CurrentState?.Update();
+            // Exit case: no states to update
+            if (!HasStates()) return;
+            
+            // Update current state
+            CurrentState.Update();
         }
     }
 }

@@ -43,6 +43,12 @@ namespace EIDOS.Stack_Machine
                 StateStack.Pop();
 
                 Log($"Popped async state: {CurrentState.GetType().Name}", LogType.Info);
+
+                // Exit case: not configured to reenter on pop
+                if (!ShouldReenterOnPop()) return;
+                
+                // Reenter the current state
+                await CurrentState.Enter();
             }
             catch (Exception e)
             {
