@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d73a743f2e4f5da63aad52ce149ca9, type: 3}
   m_Name: Transition Preset
   m_EditorClassIdentifier: 
-  duration: 2
+  duration: 0.75
   scaleCurve:
     serializedVersion: 2
     m_Curve:
@@ -20,52 +20,34 @@ MonoBehaviour:
       time: 0
       value: 0
       inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      outSlope: 1
+      tangentMode: 69
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.2
-      value: 0.1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      outWeight: 0.172
     - serializedVersion: 3
       time: 0.5
       value: 0.5
       inSlope: 1
       outSlope: 1
-      tangentMode: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.8
-      value: 0.9
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   minScale: 0
-  maxScale: 20
+  maxScale: 60
   fogDensityCurve:
     serializedVersion: 2
     m_Curve:

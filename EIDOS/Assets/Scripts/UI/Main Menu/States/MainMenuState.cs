@@ -27,6 +27,23 @@ namespace EIDOS.UI.Main_Menu.States
             quitButton = elementContainer.Query<Button>("QuitButton");
         }
 
+        public override async UniTask Enter()
+        {
+            // Skip transition for initial state on the first entry
+            if (IsInitialState && IsFirstTimeEntering())
+            {
+                ElementContainer.style.display = DisplayStyle.Flex;
+                ElementContainer.transform.scale = Vector3.one;
+                OnFirstTimeEntered();
+            }
+            else
+            {
+                await TransitionController.TransitionIn(ElementContainer, TransitionDepth.Far);
+            }
+            
+            await OnEnterComplete();
+        }
+
         protected override bool IsFirstTimeEntering()
         {
             bool isFirst = firstTimeEntering;

@@ -12,11 +12,11 @@ namespace EIDOS.UI.Main_Menu.States
 {
     public class MainBaseState : IAsyncStackState
     {
-        private readonly TransitionController transitionController;
-        private readonly bool isInitialState;
+        protected readonly TransitionController TransitionController;
+        protected readonly bool IsInitialState;
 
         protected readonly MainMenuController MenuController;
-        private readonly VisualElement elementContainer;
+        protected readonly VisualElement ElementContainer;
         
         private readonly bool debug = false;
         
@@ -28,9 +28,9 @@ namespace EIDOS.UI.Main_Menu.States
             bool debug = false)
         {
             MenuController = menuController;
-            this.elementContainer = elementContainer;
-            this.transitionController = transitionController;
-            this.isInitialState = isInitialState;
+            TransitionController = transitionController;
+            ElementContainer = elementContainer;
+            IsInitialState = isInitialState;
             this.debug = debug;
         }
 
@@ -40,15 +40,15 @@ namespace EIDOS.UI.Main_Menu.States
         public virtual async UniTask Enter()
         {
             // Skip transition for initial state on the first entry
-            if (isInitialState && IsFirstTimeEntering())
+            if (IsInitialState && IsFirstTimeEntering())
             {
-                elementContainer.style.display = DisplayStyle.Flex;
-                elementContainer.transform.scale = Vector3.one;
+                ElementContainer.style.display = DisplayStyle.Flex;
+                ElementContainer.transform.scale = Vector3.one;
                 OnFirstTimeEntered();
             }
             else
             {
-                await transitionController.TransitionIn(elementContainer);
+                await TransitionController.TransitionIn(ElementContainer);
             }
             
             await OnEnterComplete();
@@ -59,7 +59,7 @@ namespace EIDOS.UI.Main_Menu.States
         /// </summary>
         public virtual async UniTask Exit()
         {
-            await transitionController.TransitionOut(elementContainer);
+            await TransitionController.TransitionOut(ElementContainer);
             
             await OnExitStart();
         }

@@ -27,6 +27,13 @@ namespace EIDOS.UI.Main_Menu.States
             // Load save data and update UI
             LoadSaveSlotData();
         }
+        
+        public override async UniTask Exit()
+        {
+            await TransitionController.TransitionOut(ElementContainer, TransitionDepth.Near);
+            
+            await OnExitStart();
+        }
 
         protected override async UniTask OnEnterComplete()
         {

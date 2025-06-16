@@ -27,14 +27,16 @@ namespace EIDOS.UI.Main_Menu.Transitions
             maxScale = preset.MaxScale;
         }
 
-        public async UniTask TransitionOut(VisualElement element)
+        public async UniTask TransitionOut(VisualElement element, TransitionDepth depth = TransitionDepth.Far)
         {
-            await PerformTransition(element, 1f, maxScale, TransitionType.Exit, hideAfter: true);
+            float targetScale = depth == TransitionDepth.Far ? maxScale : minScale;
+            await PerformTransition(element, 1f, targetScale, TransitionType.Exit, hideAfter: true);
         }
 
-        public async UniTask TransitionIn(VisualElement element)
+        public async UniTask TransitionIn(VisualElement element, TransitionDepth depth = TransitionDepth.Near)
         {
-            await PerformTransition(element, minScale, 1f, TransitionType.Enter, showBefore: true);
+            float startScale = depth == TransitionDepth.Near ? minScale : maxScale;
+            await PerformTransition(element, startScale, 1f, TransitionType.Enter, showBefore: true);
         }
 
         /// <summary>
@@ -50,55 +52,6 @@ namespace EIDOS.UI.Main_Menu.Transitions
         )
         {
             await PerformTransition(element, fromScale, toScale, type, showBefore, hideAfter);
-        }
-        
-        /// <summary>
-        /// Performs a simultaneous transition: one element out, another in
-        /// </summary>
-        public async UniTask TransitionBetween(VisualElement exitElement, VisualElement enterElement)
-        {
-            // Kill any existing transition
-            currentTween?.Kill();
-            
-            // Ensure both elements are visible at the start
-            exitElement.style.display = DisplayStyle.Flex;
-            enterElement.style.display = DisplayStyle.Flex;
-            
-            // Set initial scales
-            ApplyScale(exitElement, 1f);
-            ApplyScale(enterElement, minScale);
-            
-            UniTaskCompletionSource tcs = new UniTaskCompletionSource();
-            
-            currentTween = DOVirtual.Float(0f, 1f, transitionDuration, progress =>
-                {
-                    // Evaluate the curve value for this progress
-                    float curveValue = scaleCurve.Evaluate(progress);
-                
-                    // Exit element: interpolate from 1 to maxScale
-                    float exitScale = Mathf.Lerp(1f, maxScale, curveValue);
-                    ApplyScale(exitElement, exitScale);
-                
-                    // Enter element: interpolate from minScale to 1
-                    float enterScale = Mathf.Lerp(minScale, 1f, curveValue);
-                    ApplyScale(enterElement, enterScale);
-                
-                    // Fire events for both transitions
-                    OnTransitionUpdate?.Invoke(new TransitionData
-                    {
-                        Progress = progress,
-                        ScaleValue = curveValue,
-                        Type = TransitionType.Exit
-                    });
-                })
-                .SetEase(Ease.Linear)
-                .OnComplete(() =>
-                {
-                    exitElement.style.display = DisplayStyle.None;
-                    tcs.TrySetResult();
-                });
-            
-            await tcs.Task;
         }
 
         private async UniTask PerformTransition(
@@ -121,9 +74,14 @@ namespace EIDOS.UI.Main_Menu.Transitions
             
             // Set initial scale
             ApplyScale(element, fromScale);
+
+            // Determine the depth based on scale values
+            TransitionDepth depth = DetermineDepth(fromScale, toScale, type);
             
+            // Start tracking the completion source
             UniTaskCompletionSource tcs = new UniTaskCompletionSource();
             
+            // Set the tween
             currentTween = DOVirtual.Float(0f, 1f, transitionDuration, progress =>
                 {
                     // Evaluate the curve value for this progress
@@ -138,7 +96,8 @@ namespace EIDOS.UI.Main_Menu.Transitions
                     {
                         Progress = progress,
                         ScaleValue = curveValue,
-                        Type = type
+                        Type = type,
+                        Depth = depth
                     });
                 })
                 .SetEase(Ease.Linear)
@@ -154,6 +113,20 @@ namespace EIDOS.UI.Main_Menu.Transitions
             await tcs.Task;
         }
 
+        private TransitionDepth DetermineDepth(float fromScale, float toScale, TransitionType type)
+        {
+            if (type == TransitionType.Enter)
+            {
+                // Entering: check where we're coming from
+                return fromScale > 1f ? TransitionDepth.Far : TransitionDepth.Near;
+            }
+            else
+            {
+                // Exiting: check where we're going
+                return toScale > 1f ? TransitionDepth.Far : TransitionDepth.Near;
+            }
+        }
+        
         private void ApplyScale(VisualElement element, float scale)
         {
             // Exit case: the element is null
