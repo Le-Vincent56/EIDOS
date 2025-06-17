@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8414dee37679548a0bc7313de2f56b, type: 3}
   m_Name: Scene Group Data
   m_EditorClassIdentifier: 
+  initialScene: 1
   sceneGroups:
   - groupName: Main Menu
     scenes:
@@ -19,4 +20,9 @@ MonoBehaviour:
         asset: {fileID: 102900000, guid: 871a3de4ecd36824bb92b8594b8dafb9, type: 3}
         guid: 871a3de4ecd36824bb92b8594b8dafb9
       sceneType: 0
-  initialScene: 0
+  - groupName: Battle Scene
+    scenes:
+    - reference:
+        asset: {fileID: 102900000, guid: 25e515a4ac85148498aee7d5c1ccc252, type: 3}
+        guid: 25e515a4ac85148498aee7d5c1ccc252
+      sceneType: 0

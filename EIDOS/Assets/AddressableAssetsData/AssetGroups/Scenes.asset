@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Scenes
   m_GUID: 8161ae37310d6214bb2adbe1a8cfe6cd
   m_SerializeEntries:
+  - m_GUID: 25e515a4ac85148498aee7d5c1ccc252
+    m_Address: Assets/Scenes/Battle Scene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 871a3de4ecd36824bb92b8594b8dafb9
     m_Address: Assets/Scenes/Main Menu.unity
     m_ReadOnly: 0

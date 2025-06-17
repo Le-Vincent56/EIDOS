@@ -22,6 +22,7 @@ namespace EIDOS.Scene_Management
         [Header("Fields")] 
         [SerializeField] private bool debug;
         [SerializeField] private bool isLoading;
+        [SerializeField] private bool useCurrentSceneGroup;
         
         private EventBinding<LoadScene> onLoadScene;
         
@@ -131,7 +132,7 @@ namespace EIDOS.Scene_Management
             // Exit early if debugging is disabled
             if (!debug) return;
                 
-            Debugger.Log($"[SceneLoader]","message}", logType);
+            Debugger.Log($"[SceneLoader]", message, logType);
         }
     }
 }
