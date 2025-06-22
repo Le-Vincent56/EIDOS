@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EIDOS
+namespace EIDOS.Eidra
 {
     public class Eidra : MonoBehaviour
     {

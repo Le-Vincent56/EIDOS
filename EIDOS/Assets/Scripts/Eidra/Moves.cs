@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EIDOS
+namespace EIDOS.Eidra
 {
     [CreateAssetMenu(fileName = "Moves", menuName = "Scriptable Objects/Moves")]
     public class Moves : ScriptableObject

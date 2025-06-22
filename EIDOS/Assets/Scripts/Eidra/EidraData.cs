@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EIDOS
+namespace EIDOS.Eidra
 {
     public enum Agent
     {
@@ -36,15 +36,22 @@ namespace EIDOS
         [SerializeField] private List<string> _ascensionLine;
 
         public string Name => _name;
-        public int Vigor => _vigor;
-        public int Might => _might;
-        public int Defense => _defense;
-        public int Resolve => _resolve;
-        public int Grace => _grace;
-        public List<Echo> Echoes => _echoes;
-        public List<Moves> Moves => _moves;
+        public int Vigor { get => _vigor; set => _vigor = value; }
+        public int Might { get => _might; set => _might = value; }
+        public int Defense { get => _defense; set => _defense = value; }
+        public int Resolve { get => _resolve; set => _resolve = value; }
+        public int Grace { get => _grace; set => _grace = value; }
+        public List<Echo> Echoes { get => _echoes; set => _echoes = value; }
+        public List<Moves> Moves { get => _moves; set => _moves = value; }
         public Agent Agent => _agent;
         public List<string> AscensionLine => _ascensionLine;
-    
+
+        private void OnEnable()
+        {
+            if (string.IsNullOrEmpty(_name))
+            {
+                _name = name;
+            }
+        }
     }
 }
