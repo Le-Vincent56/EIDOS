@@ -99,5 +99,27 @@ namespace EIDOS.Battle.Animations
                     break;
             }
         }
+
+        private void OnPlayOneShot(PlayEidraAnimOneShot eventdata)
+        {
+            if(eventdata.index != eidraIndex) return;
+            if (_playableGraph.IsValid() && eventdata.clip == _oneShotPlayable.GetAnimationClip()) return;
+
+            InterruptOneshot();
+            _oneShotPlayable = AnimationClipPlayable.Create(_playableGraph, eventdata.clip);
+            _topLevelMixer.ConnectInput(1, _oneShotPlayable, 0);
+            _topLevelMixer.SetInputWeight(1, 1);
+            
+            
+        }
+
+        void InterruptOneshot()
+        {
+            if (_oneShotPlayable.IsValid())
+            {
+                _topLevelMixer.DisconnectInput(1);
+                _playableGraph.DestroyPlayable(_oneShotPlayable);
+            }
+        }
     }
 }
