@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using EIDOS.Battle.Animations;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace EIDOS.Event_Bus.Events
 {
@@ -26,7 +28,14 @@ namespace EIDOS.Event_Bus.Events
     {
         // TODO: Think of some other way to validate later
         public int index;
-        public AnimationClip clip;
+        public AnimationClip animClip;
+        public AudioClip[] audioClips;
+    }
+
+    public struct PlayEidraBattleAnimation : IEvent
+    {
+        public int index;
+        public BattleAnimation battleAnimation;
     }
 
     // TODO: Better name?
