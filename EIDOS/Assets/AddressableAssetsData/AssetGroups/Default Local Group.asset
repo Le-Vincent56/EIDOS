@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
   m_GUID: b8e43a5760a9e484f9d3dbb84b73381d
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 42e62eac3e778554aab359d75b647ab5
+    m_Address: Assets/Scenes/Battle Scene/Animation Scene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: e0f866ed136eeb34bb8d3b0fb7c13b73, type: 2}
   m_SchemaSet:
